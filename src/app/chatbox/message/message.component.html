@@ -1,0 +1,51 @@
+@if(message.bodySent === undefined || message.bodySent === false){
+    <div [@slideFromLeft]=" !message.sent ? 'active' : 'disabled'" [@shrink] [@slideFromRight]="message.sent ? 'active' : 'disabled'" class="row p-2 px-4 message-body" [ngClass]="{'justify-content-end': message.sent}">
+        @if(message.loader){
+            <div class="col-auto p-4 reply primary-bg-a3 rounded-3" style="position: relative;">
+                <div class="loader"></div>
+            </div>
+        }
+        @else {
+            <div class="col-9 rounded-3 p-2" [ngClass]="{'msg primary-bg-a11': message.sent, 'reply primary-bg-a3': !message.sent}">
+                <div class="row">
+                    @if(message.formType !== undefined){
+                        <div class="col-10 d-flex align-items-center">
+                            <span>
+                                {{message.body}}
+                            </span>
+                        </div>
+                        <div class="col-2 d-flex justify-content-end">
+                            <svg (click)="rotateIcon($event)" class="icon icon-white icon-lg" data-bs-toggle="collapse" attr.data-bs-target="#form-body-{{elementNumber}}" aria-expanded="false" attr.aria-controls="form-body-{{elementNumber}}"><use href="/assets/svg/sprites.svg#it-arrow-right-triangle"></use></svg>
+                        </div>
+                    }
+                    @else {
+                        <div class="col-12">
+                            <span>
+                                {{message.body}}
+                            </span>
+                        </div>
+                    }
+                    <div class="col-12">
+                        @if(message.formType !== undefined && !message.bodySent){
+                            <div [@shrink] class="collapse" id="form-body-{{elementNumber}}">
+                                <div class="card card-body">
+                                    <app-dynamic-form
+                                        (formData)="messageService.handleForm(message, $event)"
+                                        [contentLoaded]="true"
+                                        [basicValue]="forms[message.formType]"
+                                        [formBtn]="'CONFERMA'"
+                                    ></app-dynamic-form>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="col-12 d-flex justify-content-end mt-3">
+                        <span class="text-white datetime">
+                            {{elaborateTimestamp(message.timestamp)}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

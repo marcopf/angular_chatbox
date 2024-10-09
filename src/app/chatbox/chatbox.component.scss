@@ -1,0 +1,46 @@
+.main-container{
+    position: sticky;
+    width: 3svw;
+    height: 3svw;
+    bottom: 1svw;
+    left: 95svw;
+    background-color: white;
+    transition: 0.4s;
+}
+
+.inner-body{
+    height: 100%;
+    overflow: scroll;
+}
+
+.inner-body::-webkit-scrollbar {
+    display: none;
+  }
+  
+
+.chat-open{
+    width: 900px !important;
+    height: 950px !important;
+ 
+    z-index: 100000;
+}
+
+.title-row{
+    height: 5%;
+}
+
+button, svg{
+    transition: 0.3s;
+}
+
+.body-row{
+    height: 80%;
+}
+
+.input-row{
+    height: 15%;
+}
+
+.btn-col{
+    height: 100%;
+}

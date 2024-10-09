@@ -1,0 +1,5 @@
+<div class="form-group m-0"	#wholeInput>
+	<label class="active p-0" for="{{tag + key}}">{{label}}{{requiredLabel}}</label>
+	<input [formControl]="formC" type="date" id="{{tag + key}}">
+	<small id="{{tag + key + '-tooltip'}}" class="form-text"></small>
+</div>

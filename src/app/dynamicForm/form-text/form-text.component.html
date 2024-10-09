@@ -1,0 +1,46 @@
+
+@if(type == 'PASSWORD'){
+	<div class="form-group m-0">
+		<label class="text-capitalize" for="{{tag + key}}">{{label}}{{requiredLabel}}</label>
+		<input
+			(keyup)="checkError($event)"
+			type="password"
+			class="form-control input-password"
+			id="{{tag + key}}"
+			[formControl]="formC"
+			[placeholder]="givenPlaceHolder ?? ''"
+			aria-describedby="formGroupExampleInputWithHelpDescription"
+			data-bs-input aria-labelledby="infoPassword"
+			autocomplete="off"
+		>
+		<span class="password-icon" aria-hidden="true">
+			<svg class="password-icon-visible icon icon-sm"><use href="/assets/svg/sprites.svg#it-password-visible"></use></svg>
+			<svg class="password-icon-invisible icon icon-sm d-none"><use href="/assets/svg/sprites.svg#it-password-invisible"></use></svg>
+		</span>
+		<small id="{{tag + key + '-tooltip'}}" class="form-text"></small>
+	</div>
+}
+@else {
+	<ng-template #tipContent>
+		{{tooltip ?? ''}}
+	</ng-template>
+	<div class="form-group m-0">
+			@if (tooltip !== undefined){
+				<label class="active p-0 text-capitalize" for="{{tag + key}}">{{label}}{{requiredLabel}}</label>
+			}
+			@else{
+				<label class="active p-0 text-capitalize" for="{{tag + key}}">{{label}}{{requiredLabel}}</label>
+			}
+			<input
+				(keyup)="checkError($event)"
+				[type]="type ?? 'text'"
+				class="form-control"
+				id="{{tag + key}}"
+				[formControl]="formC"
+				[placeholder]="givenPlaceHolder ?? ''"
+				aria-describedby="formGroupExampleInputWithHelpDescription"
+				autocomplete="on"
+			>
+			<small id="{{tag + key + '-tooltip'}}" class="form-text"></small>
+	</div>
+}

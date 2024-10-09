@@ -1,0 +1,17 @@
+<div class="w-100">
+	<div class="form-group">
+		<label for="{{tag + key}}" class="input-number-label active">{{label}}{{requiredLabel}}</label>
+		<div class="input-group input-number">
+			<input type="number" class="form-control" [placeholder]="givenPlaceHolder" data-bs-input id="{{tag + key}}" [formControl]="formC" name="inputNumber" value="100" step="any" />
+			<span class="input-group-text align-buttons flex-column">
+				<button (click)="checkError($event)" class="input-number-add">
+					<span class="visually-hidden">Aumenta valore</span>
+				</button>
+				<button (click)="checkError($event)" class="input-number-sub">
+					<span class="visually-hidden">Diminuisci valore</span>
+				</button>
+			</span>
+		</div>
+		<small id="{{tag + key + '-tooltip'}}" class="form-text"></small>
+	</div>
+</div>

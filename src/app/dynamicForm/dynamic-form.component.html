@@ -1,0 +1,119 @@
+<div class="container-fluid">
+	<form [formGroup]="addUserForm" (ngSubmit)="onSubmit()">
+
+		<!-- mostra il loader finche' i dati relativi agli attributi non vengono caricati -->
+		<!-- @if (!contentLoaded){
+			<app-spinner></app-spinner>
+		} -->
+		@if (contentLoaded){
+			<h1 class="text-primary">{{formTitle}}</h1>
+			<div class="row mt-3 align-items-start ">
+
+				<!-- ciclo l'array ottenuto andando a creare ogni componente necessario partendo dal json ottenuto tramite richiesta API -->
+				@for(element of basicValue; let i = $index; track element){
+					@if (basicValue!.length != 0){
+
+						<!-- filtro ogni oggetto identificando il tipo -->
+						@switch(element.type){
+							@case("CHECKBOX"){
+								<div class="col-12 col-md-12 col-sm-12 my-3">
+									<div class="row">
+										<div class="col-12 col-md-4">
+											<app-form-checkbox
+												[formC]="formGroupObj[element.id]"
+												[tag]="tag" [key]="element.id"
+												[label]="element.label"
+												[required]="element.required"
+											></app-form-checkbox>
+										</div>
+									</div>
+								</div>
+							}
+							@case("DATE"){
+								<div class="col-12 col-md-6 col-sm-12 my-3">
+									<app-form-date
+									[formC]="formGroupObj[element.id]"
+									[tag]="tag"
+									[key]="element.id"
+									[label]="element.label"
+									[required]="element.required"
+								    ></app-form-date>
+								</div>
+							}
+							@case("NUMBER"){
+								<div class="col-12 col-md-6 col-sm-12 my-3">
+									<app-form-number
+										[formC]="formGroupObj[element.id]"
+										[tag]="tag"
+										[key]="element.id"
+										[label]="element.label"
+										[required]="element.required"
+									></app-form-number>
+								</div>
+							}
+							@case("SELECT"){
+								<div class="col-12 col-md-6 col-sm-12 my-3">
+									<app-form-select
+										[formC]="formGroupObj[element.id]"
+										[tag]="tag"
+										[key]="element.id"
+										[label]="element.label"
+										[options]="element.options"
+										[required]="element.required"
+									></app-form-select>
+								</div>
+							}
+							@case("TOGGLE"){
+								<div class="col-12 col-md-12 col-sm-12 my-3">
+									<div class="row">
+										<div class="col-12 col-md-4">
+											<app-form-toggle
+												[formC]="formGroupObj[element.id]"
+												[tag]="tag"
+												[key]="element.id"
+												[label]="element.label"
+												[required]="element.required"
+											></app-form-toggle>
+										</div>
+									</div>
+								</div>
+							}
+							@case("dummy"){
+							}
+							@default{
+								<div class="col-12 col-md-6 col-sm-12 my-3">
+									<app-form-text
+										[formC]="formGroupObj[element.id]"
+										[type]="element.type"
+										[tag]="tag"
+										[key]="element.id"
+										[label]="element.label"
+										[required]="element.required"
+										[givenPlaceHolder]="element.helperText?.placeholder"
+										[errorMessage]="element.helperText?.invalidFieldMessage"
+										[tooltip]="element.helperText?.tooltip"
+									></app-form-text>
+								</div>
+							}
+						}
+					}
+				}
+			</div>
+			<div class="row">
+				<div class="col-12 col-md-6 mb-3 mb-md-0">
+					<span class="text-info col-12 d-flex align-items-center">{{'requiredFields'}} (*)</span>
+				</div>
+				<div class="col-12 col-md-6">
+					<button class="btn btn-primary float-end" [disabled]="!this.addUserForm.valid">{{formBtn}}</button>
+					@if(hideReset){
+
+						<ng-content select="app-password-reset"></ng-content>
+					}
+					@if(!hideReset){
+						<button class="btn float-end" (click)="resetFields($event)">{{'reset'}}</button>
+					}
+				</div>
+			</div>
+		}
+	</form>
+</div>
